@@ -22,6 +22,8 @@ I just wondering _"How to create login with Firebase in React?"_ then I create t
 - Axios
 - TypeScript
 - React Router V6
+- Framer Motion
+- Formik
 
 ### Task List 📝
 
