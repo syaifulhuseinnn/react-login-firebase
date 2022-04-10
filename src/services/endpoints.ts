@@ -1,10 +1,16 @@
 import api from "./api";
+import { Quotes } from "../types/quotesType";
+import axios from "axios";
 
-export const listOfQuotes = async () => {
+export const listOfQuotes = async (): Promise<Quotes | string> => {
   try {
-    const quotes = await api.get("/quotes");
+    const quotes = await api.get<Quotes>("/quotes");
     return quotes.data;
   } catch (error) {
-    throw Error("Failed to get quotes!");
+    if (axios.isAxiosError(error)) {
+      throw error.response?.data;
+    } else {
+      throw error;
+    }
   }
 };

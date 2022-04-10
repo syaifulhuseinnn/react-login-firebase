@@ -1,19 +1,28 @@
 import React from "react";
-import { Container, Spinner, Flex } from "@chakra-ui/react";
-import { useAuth } from "../utils/useAuth";
+import { Container, Spinner, Flex, Heading } from "@chakra-ui/react";
+import { useAuth } from "../hooks/useAuth";
 import ListOfQuotes from "./ListOfQuotes";
-import { useListOfQuotes } from "../utils/useListOfQuotes";
+import { useListOfQuotes } from "../hooks/useListOfQuotes";
 import Navbar from "./Navbar";
 
 function Home() {
-  const { isLoading, user } = useAuth();
-  const { status, quotes, error } = useListOfQuotes();
-
-  if (status === "success" && Object.keys(quotes).length !== 0) {
+  const { user } = useAuth();
+  const { status, quotes, error } = useListOfQuotes(user);
+  console.log(error);
+  if (status === "success") {
     return (
       <Container maxW="100%" p={0}>
         <Navbar />
         <ListOfQuotes quotes={quotes} />
+      </Container>
+    );
+  }
+
+  if (status === "failed") {
+    return (
+      <Container maxW="100%" p={0}>
+        <Navbar />
+        <Heading>{error}</Heading>
       </Container>
     );
   }

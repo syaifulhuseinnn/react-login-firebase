@@ -34,11 +34,12 @@ function ListOfQuotes({ quotes }: QuotesProps) {
   return (
     <Container maxW="container.md">
       <Stack direction="column" my={5} spacing={5}>
-        {quotes.quotes.map((quote) => (
+        {quotes.quotes.map((quote, index) => (
           <motion.div
             initial="offscreen"
             whileInView="onscreen"
             viewport={{ once: true, amount: 0.8 }}
+            key={index}
           >
             <motion.div variants={cardVariants}>
               <Box
